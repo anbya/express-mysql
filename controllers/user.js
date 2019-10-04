@@ -170,7 +170,8 @@ module.exports = {
                 });
             }
             else{
-                connection.query(`SELECT * FROM user WHERE pass_user == '${req.body.pass_user}' `,(error1,result1,field1)=> {
+                let prmuser=result[0].id_user;
+                connection.query(`SELECT * FROM user WHERE id_user = '${prmuser}' AND pass_user = '${req.body.pass_user}' `,(error1,result1,field1)=> {
                     if (error1){
                         res.status(400).send({
                             message: `Password tidak sesuai`,
