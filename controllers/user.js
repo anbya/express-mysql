@@ -184,17 +184,15 @@ module.exports = {
                                     result1
                                 });
                             } else {
-                                res.status(200).send({
-                                    message: `Password tidak sesuai`,
-                                    result1
+                                res.status(400).send({
+                                    message: `Password tidak sesuai`
                                 });
                             }
                         }
                     });
                 } else {
-                    res.status(200).send({
-                        message: `Akun tidak ditemukan`,
-                        result
+                    res.status(400).send({
+                        message: `Akun tidak ditemukan`
                     });
                 }
             }
