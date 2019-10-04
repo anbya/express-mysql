@@ -161,7 +161,7 @@ module.exports = {
             }
         );
     },
-    loginUser: async (req,res) => {
+    loginUser: (req,res) => {
         connection.query(`SELECT * FROM user WHERE nama_user = '${req.body.akun_user}' OR email_user = '${req.body.akun_user}'`,(error,result,field)=> {
             if (error){
                 res.status(400).send({
