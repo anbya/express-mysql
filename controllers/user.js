@@ -170,16 +170,16 @@ module.exports = {
                 });
             }
             else{
-                connection.query(`SELECT * FROM user WHERE pass_user = '${req.body.pass_user}' `,(error,result,field)=> {
-                    if (error){
+                connection.query(`SELECT * FROM user WHERE pass_user = '${req.body.pass_user}' `,(error1,result1,field1)=> {
+                    if (error1){
                         res.status(400).send({
                             message: `Password tidak sesuai`,
-                            error
+                            error1
                         });
                     }
                     else{
                         res.status(200).send({
-                            result
+                            result1
                         });
                     }
                 });
