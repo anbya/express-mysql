@@ -174,13 +174,13 @@ module.exports = {
                 connection.query(`SELECT * FROM user WHERE id_user = '${prmuser}' AND pass_user = '${req.body.pass_user}' `,(error1,result1,field1)=> {
                     if (error1){
                         res.status(400).send({
-                            message: `Password tidak sesuai data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
+                            message: `Password tidak sesuai`,
                             error1
                         });
                     }
                     else{
                         res.status(200).send({
-                            message: `data(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
+                            message: `data ditemukan`,
                             result1
                         });
                     }
