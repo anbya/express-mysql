@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router()
 
-const {getAllContent,addContent} = require("../controllers/user")
+const {getAllContent,addContent} = require("../controllers/content")
 
 const upload=require("../config/multer")
 
