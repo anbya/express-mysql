@@ -162,15 +162,26 @@ module.exports = {
         );
     },
     loginUser: async (req,res) => {
-        connection.query(`SELECT * FROM user WHERE (nama_user = '${req.body.akun_user}' OR email_user = '${req.body.akun_user}') AND pass_user = '${req.body.pass_user}'`,(error,result,field)=> {
+        connection.query(`SELECT * FROM user WHERE nama_user = '${req.body.akun_user}' OR email_user = '${req.body.akun_user}'`,(error,result,field)=> {
             if (error){
                 res.status(400).send({
+                    message: `Akun tidak ditemukan`,
                     error
                 });
             }
             else{
-                res.status(200).send({
-                    result
+                connection.query(`SELECT * FROM user WHERE pass_user = '${req.body.pass_user}' `,(error,result,field)=> {
+                    if (error){
+                        res.status(400).send({
+                            message: `Password tidak sesuai`,
+                            error
+                        });
+                    }
+                    else{
+                        res.status(200).send({
+                            result
+                        });
+                    }
                 });
             }
 
