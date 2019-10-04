@@ -162,31 +162,42 @@ module.exports = {
         );
     },
     loginUser: (req,res) => {
-        connection.query(`SELECT * FROM user WHERE nama_user = ? OR email_user = ?`,[req.body.akun_user,req.body.akun_user],(error,result,field)=> {
+        connection.query(`SELECT * FROM user WHERE nama_user = "${req.body.prm_akun}" OR email_user = "${req.body.prm_akun}"`,(error,result,field)=> {
             if (error){
                 res.status(400).send({
-                    message: `Akun tidak ditemukan data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
                     error
                 });
             }
             else{
-                let prmuser=result[0].id_user;
-                connection.query(`SELECT * FROM user WHERE id_user = ? AND pass_user = ? `,[prmuser,req.body.pass_user],(error1,result1,field1)=> {
-                    if (error1){
-                        res.status(400).send({
-                            message: `Password tidak sesuai data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
-                            error1
-                        });
-                    }
-                    else{
-                        res.status(200).send({
-                            message: `data ditemukan data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
-                            result1
-                        });
-                    }
-                });
+                if(result.length >= 1){
+                    let prmuser=result[0].id_user;
+                    connection.query(`SELECT * FROM user WHERE id_user = "${prmuser}" AND pass_user = "${req.body.pass_user}" `,[prmuser,req.body.pass_user],(error1,result1,field)=> {
+                        if (error1){
+                            res.status(400).send({
+                                error1
+                            });
+                        }
+                        else{
+                            if(result1.length >= 1){
+                                res.status(200).send({
+                                    message: `Data ditemukan`,
+                                    result1
+                                });
+                            } else {
+                                res.status(200).send({
+                                    message: `Password tidak sesuai`,
+                                    result1
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    res.status(200).send({
+                        message: `Akun tidak ditemukan`,
+                        result
+                    });
+                }
             }
-
         });
     }
 };
