@@ -1,0 +1,1 @@
+`INSERT INTO content values("${id_content}","","${req.body.title_content}","${req.body.body_content}","")`
