@@ -7,7 +7,7 @@ const app = express()
 
 const userRouter = require("./routes/user")
 const memberRouter = require("./routes/member")
-const contentRouter = require("./routes/member")
+const contentRouter = require("./routes/content")
 
 const PORT = process.env.PORT || 3999
 
