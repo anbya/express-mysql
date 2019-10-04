@@ -165,7 +165,7 @@ module.exports = {
         connection.query(`SELECT * FROM user WHERE nama_user = '${req.body.akun_user}' OR email_user = '${req.body.akun_user}'`,(error,result,field)=> {
             if (error){
                 res.status(400).send({
-                    message: `Akun tidak ditemukan`,
+                    message: `Akun tidak ditemukan data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
                     error
                 });
             }
@@ -174,13 +174,13 @@ module.exports = {
                 connection.query(`SELECT * FROM user WHERE id_user = '${prmuser}' AND pass_user = '${req.body.pass_user}' `,(error1,result1,field1)=> {
                     if (error1){
                         res.status(400).send({
-                            message: `Password tidak sesuai`,
+                            message: `Password tidak sesuai data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
                             error1
                         });
                     }
                     else{
                         res.status(200).send({
-                            message: `data ditemukan`,
+                            message: `data ditemukan data(${prmuser})(${req.body.akun_user})(${req.body.akun_user})(${req.body.pass_user})`,
                             result1
                         });
                     }
