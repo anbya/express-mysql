@@ -17,7 +17,7 @@ module.exports = {
         });
     },
     testGet:(req,res) =>{
-        connection.query("SELECT * FROM content",(error,result,field)=> {
+        connection.query("SELECT header_image as src, title_content as altText,body_content as caption FROM content",(error,result,field)=> {
             if (error){
                 res.status(400).send({
                     error
