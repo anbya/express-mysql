@@ -16,6 +16,21 @@ module.exports = {
 
         });
     },
+    testGet:(req,res) =>{
+        connection.query("SELECT * FROM content",(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
     addContent: (req,res) =>{
         let getDate = new Date();
         let prmyear = getDate.getFullYear();

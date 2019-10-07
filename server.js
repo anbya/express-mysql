@@ -8,6 +8,7 @@ const app = express()
 const userRouter = require("./routes/user")
 const memberRouter = require("./routes/member")
 const contentRouter = require("./routes/content")
+const eventsRouter = require("./routes/content")
 
 const PORT = process.env.PORT || 3999
 
@@ -30,6 +31,7 @@ app.get("/", function(req,res){
 app.use("/user", userRouter);
 app.use("/member", memberRouter);
 app.use("/content", contentRouter);
+app.use("/events", eventsRouter);
 app.listen(PORT, () => {
     console.log(`server running on port:${PORT}`);
 });
