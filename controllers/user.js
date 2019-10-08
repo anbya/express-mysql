@@ -178,7 +178,7 @@ module.exports = {
             else{
                 if(result.length >= 1){
                     let prmuser=result[0].id_user;
-                    connection.query(`SELECT * FROM user WHERE id_user = "${prmuser}" AND pass_user = "${req.body.pass_user}" `,[prmuser,req.body.pass_user],(error1,result1,field)=> {
+                    connection.query(`SELECT * FROM user WHERE id_user = "${prmuser}" `,[prmuser],(error1,result1,field)=> {
                         if (error1){
                             res.status(400).send({
                                 error1
@@ -186,13 +186,31 @@ module.exports = {
                         }
                         else{
                             if(result1.length >= 1){
-                                res.status(200).send({
-                                    message: `Data ditemukan`,
-                                    result1
-                                });
+                                let prmpassuser=result1[0].pass_user;
+                                const valid = bcrypt.compareSync(req.body.password, prmpassuser);
+                                if(valid){
+                                    // const token = await jwt.sign(
+                                    //     {
+                                    //         data:existedUser
+                                    //     },
+                                    //     "jangansampaioranglaintau",
+                                    //     {
+                                    //         expiresIn:"1h"
+                                    //     }
+                                    // );
+                                    // res.send({
+                                    //     token
+                                    // })
+                                    res.status(200).send({
+                                        message: `Login success`,
+                                        result1
+                                    });
+                                } else {
+                                    res.send({message:"password is invalid"});
+                                }
                             } else {
                                 res.status(400).send({
-                                    message: `Password tidak sesuai`
+                                    message: `Data tidak ditemukan`
                                 });
                             }
                         }
