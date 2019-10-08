@@ -187,7 +187,7 @@ module.exports = {
                         else{
                             if(result1.length >= 1){
                                 let prmpassuser=result1[0].pass_user;
-                                const valid = bcrypt.compareSync(req.body.password, prmpassuser);
+                                const valid = bcrypt.compareSync(req.body.pass_user, prmpassuser);
                                 if(valid){
                                     // const token = await jwt.sign(
                                     //     {
