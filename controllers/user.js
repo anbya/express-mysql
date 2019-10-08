@@ -209,14 +209,14 @@ module.exports = {
                                     res.send({message:"password is invalid"});
                                 }
                             } else {
-                                res.status(400).send({
+                                res.status(200).send({
                                     message: `Data tidak ditemukan`
                                 });
                             }
                         }
                     });
                 } else {
-                    res.status(400).send({
+                    res.status(200).send({
                         message: `Akun tidak ditemukan`
                     });
                 }
