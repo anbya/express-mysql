@@ -16,6 +16,21 @@ module.exports = {
 
         });
     },
+    getCommentByEvent:(req,res) =>{
+        connection.query("SELECT * FROM events_comment where idevents = '${req.body.idevent}' ORDER BY id_comment",(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
     addComment: (req,res) =>{
         let getDate = new Date();
         let prmyear = getDate.getFullYear();
