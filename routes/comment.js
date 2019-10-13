@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router()
 
-const {getAllComment,addComment} = require("../controllers/events")
+const {getAllComment,addComment} = require("../controllers/comment")
 
 const upload=require("../config/multer")
 
