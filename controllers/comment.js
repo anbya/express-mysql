@@ -17,7 +17,7 @@ module.exports = {
         });
     },
     getCommentByEvent:(req,res) =>{
-        connection.query("SELECT * FROM events_comment where idevents = '${req.body.idevent}' ORDER BY id_comment",(error,result,field)=> {
+        connection.query(`SELECT * FROM events_comment where idevents = "${req.body.idevent}" ORDER BY id_comment`,(error,result,field)=> {
             if (error){
                 res.status(400).send({
                     error
