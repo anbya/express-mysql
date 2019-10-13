@@ -9,6 +9,7 @@ const userRouter = require("./routes/user")
 const memberRouter = require("./routes/member")
 const contentRouter = require("./routes/content")
 const eventsRouter = require("./routes/events")
+const commentRouter = require("./routes/comment")
 
 const PORT = process.env.PORT || 3999
 
@@ -32,6 +33,7 @@ app.use("/user", userRouter);
 app.use("/member", memberRouter);
 app.use("/content", contentRouter);
 app.use("/events", eventsRouter);
+app.use("/comments", commentRouter);
 app.listen(PORT, () => {
     console.log(`server running on port:${PORT}`);
 });
