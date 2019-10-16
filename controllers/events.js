@@ -241,7 +241,5 @@ module.exports = {
                 }
             }
         );
-    },
-    testemail: (req,res) =>{
     }
 };
