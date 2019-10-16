@@ -1,6 +1,87 @@
 const connection = require("../config/db")
 
 module.exports = {
+    participateEvent:(req,res) =>{
+        connection.query(`SELECT * FROM events where idevents = "${req.body.idevent}"`,(errorcek,resultcek,field)=> {
+            if (errorcek){
+                res.status(400).send({
+                    errorcek
+                });
+            }
+            else{
+                let arrayparticipate=[];
+                arrayparticipate.push(resultcek[0].id_user);
+                arrayparticipate.push(req.body.iduser);
+                // let array1=resultcek[0].id_user.split(",");
+                // console.log(array1.length);
+                // if(array1.length==1){
+                //     arrayparticipate.push(req.body.iduser);
+                // } else {
+                //     arrayparticipate.push(resultcek[0].id_user);
+                //     arrayparticipate.push(req.body.iduser);
+                // }
+                connection.query(`UPDATE events set id_user = "${arrayparticipate}" where idevents = "${req.body.idevent}"`,(errorparticipate,resultparticipate,field)=> {
+                    if (errorparticipate){
+                        res.status(400).send({
+                            errorparticipate
+                        });
+                    }
+                    else{
+                        res.status(200).send({
+                            resultparticipate
+                        });
+                    }
+        
+                });
+            }
+
+        });
+    },
+    updateEvent:(req,res) =>{
+        connection.query(`UPDATE events set approvalstatusevents = "${req.body.aprrovestatus}" where idevents = "${req.body.idevent}"`,(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
+    getEventById:(req,res) =>{
+        connection.query(`SELECT * FROM events where idevents = "${req.body.idevent}"`,(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
+    getUnapproveEvent:(req,res) =>{
+        connection.query("SELECT * FROM events WHERE approvalstatusevents ='NEEDAPPROVAL'",(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
     getAllEvents:(req,res) =>{
         connection.query("SELECT * FROM events",(error,result,field)=> {
             if (error){
@@ -160,5 +241,7 @@ module.exports = {
                 }
             }
         );
+    },
+    testemail: (req,res) =>{
     }
 };
