@@ -82,6 +82,21 @@ module.exports = {
 
         });
     },
+    getApproveedEvent:(req,res) =>{
+        connection.query("SELECT * FROM events WHERE approvalstatusevents ='APPROVED'",(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
     getAllEvents:(req,res) =>{
         connection.query("SELECT * FROM events",(error,result,field)=> {
             if (error){
