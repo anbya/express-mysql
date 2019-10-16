@@ -97,6 +97,57 @@ module.exports = {
 
         });
     },
+    getApproveedthismonthEvent:(req,res) =>{
+        let today = new Date();
+        let mm = today.getMonth()+1; 
+        let yyyy = today.getFullYear();
+        let lastday = function(y,m){
+        return  new Date(y, m, 0).getDate();
+        }
+        let enddate = lastday(yyyy,mm);
+        let startdate=`${yyyy}-${mm}-01`;
+        let lastdate=`${yyyy}-${mm}-${enddate}`;
+        console.log(`${startdate} sampai ${lastdate}`);
+        
+        connection.query(`SELECT * FROM events where (startdateevents BETWEEN "${startdate}" AND "${lastdate}") AND approvalstatusevents ='APPROVED'`,(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
+    getApproveedupcomingEvent:(req,res) =>{
+        let today = new Date();
+        let mm = today.getMonth()+1; 
+        let yyyy = today.getFullYear();
+        let lastday = function(y,m){
+        return  new Date(y, m, 0).getDate();
+        }
+        let enddate = lastday(yyyy,mm);
+        let startdate=`${yyyy}-${mm}-01`;
+        let lastdate=`${yyyy}-${mm}-${enddate}`;
+        console.log(`${startdate} sampai ${lastdate}`);
+        connection.query(`SELECT * FROM events where startdateevents > "${lastdate}" AND approvalstatusevents ='APPROVED'`,(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
     getAllEvents:(req,res) =>{
         connection.query("SELECT * FROM events",(error,result,field)=> {
             if (error){
@@ -129,7 +180,7 @@ module.exports = {
                         if (newidx2>=0 && newidx2<=9)
                         {
                         let idevents=`${prmkey}000000${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -145,7 +196,7 @@ module.exports = {
                         else if (newidx2>9 && newidx2<=99)
                         {
                         let idevents=`${prmkey}00000${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -161,7 +212,7 @@ module.exports = {
                         else if (newidx2>99 && newidx2<=999)
                         {
                         let idevents=`${prmkey}0000${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -177,7 +228,7 @@ module.exports = {
                         else if (newidx2>999 && newidx2<=9999)
                         {
                         let idevents=`${prmkey}000${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -193,7 +244,7 @@ module.exports = {
                         else if (newidx2>9999 && newidx2<=99999)
                         {
                         let idevents=`${prmkey}00${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -209,7 +260,7 @@ module.exports = {
                         else if (newidx2>99999 && newidx2<=999999)
                         {
                         let idevents=`${prmkey}0${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -225,7 +276,7 @@ module.exports = {
                         else if (newidx2>999999 && newidx2<=9999999)
                         {
                         let idevents=`${prmkey}${newidx2}`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
@@ -240,7 +291,7 @@ module.exports = {
                         }
                     } else {
                         let idevents=`${prmkey}0000001`;
-                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','')`,(error,result,field)=> {
+                        connection.query(`INSERT INTO events values('${idevents}','${req.body.namaevents}','${req.body.startdate}','${req.body.enddate}','${req.body.starttime}','${req.body.endtime}','${req.body.eventlocation}','${req.body.eoname}','${req.body.pic}','${req.body.picphone}','${req.body.picemail}','${req.body.eooffice}','NEEDAPPROVAL','','','','','','','','','','','')`,(error,result,field)=> {
                             if (error){
                                 res.status(400).send({
                                     error
