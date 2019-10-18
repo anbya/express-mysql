@@ -14,7 +14,7 @@ router.get("/upcoming", getApproveedupcomingEvent);
 router.post("/id", getEventById);
 router.post("/", addEvents);
 router.post("/update", updateEvent);
-router.post("/detail", updateEventDetail);
+router.post("/detail", upload.any(),updateEventDetail);
 router.post("/participate", participateEvent);
 
 module.exports = router;
