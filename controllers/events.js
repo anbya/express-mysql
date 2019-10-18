@@ -52,6 +52,21 @@ module.exports = {
 
         });
     },
+    updateEventDetail:(req,res) =>{
+        connection.query(`UPDATE events set event_address = "${req.body.address}",bootorroomname = "${req.body.booth}",boothorroomlarge = "${req.body.large}",city = "${req.body.city}",province = "${req.body.province}",floorplan = "http://transdeal.co.id/multer-image-upload/${req.floorplan[0].filename}",rundown = "http://transdeal.co.id/multer-image-upload/${req.rundown[0].filename}",eventlogo = "http://transdeal.co.id/multer-image-upload/${req.logo[0].filename}",eventgift = "${req.body.gift}",eventpict = "http://transdeal.co.id/multer-image-upload/${req.pict[0].filename}",eventdescription = "${req.body.description}" where idevents = "${req.body.id}"`,(error,result,field)=> {
+            if (error){
+                res.status(400).send({
+                    error
+                });
+            }
+            else{
+                res.status(200).send({
+                    result
+                });
+            }
+
+        });
+    },
     getEventById:(req,res) =>{
         connection.query(`SELECT * FROM events where idevents = "${req.body.idevent}"`,(error,result,field)=> {
             if (error){
